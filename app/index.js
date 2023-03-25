@@ -8,9 +8,15 @@ import {
   Nearbyjobs,
   Popularjobs,
 } from "../components";
+import useFetch from "../hook/useFetch";
 
 const Home = () => {
   const router = useRouter();
+
+  const { data, isLoading, error } = useFetch("search", {
+    query: "React Developer",
+    num_Pages: 1,
+  });
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
@@ -30,8 +36,8 @@ const Home = () => {
       <ScrollView showsHorizontalScrollIndicator={false}>
         <View style={{ flex: 1, padding: SIZES.medium }}>
           <Welcome />
-          <Popularjobs />
-          <Nearbyjobs />
+          <Popularjobs data={data} isLoading={isLoading} error={error} />
+          <Nearbyjobs data={data} isLoading={isLoading} error={error} />
         </View>
       </ScrollView>
     </SafeAreaView>
